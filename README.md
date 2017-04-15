@@ -1,4 +1,4 @@
-# Cat-Or-Dog
+# Deep Learning
 Final Project for INFO 7250
 
 Team Members:
