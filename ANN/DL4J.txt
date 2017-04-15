@@ -32,7 +32,9 @@
 				1. set .iterations(3) to traing as AAABBBCCC 
 				2. or using 3 loops to set .iteratons(1)
 		3. Evaluating a model: using Evaluation class: for different NNs, using differernt methods
-
+		4. Saving Model: 
+			a. https://github.com/deeplearning4j/dl4j-examples/blob/master/dl4j-examples/src/main/java/org/deeplearning4j/examples/misc/modelsaving/SaveLoadMultiLayerNetwork.java
+			b. view parameters(weights): model.params()
 
 
 
