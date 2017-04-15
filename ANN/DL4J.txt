@@ -1,0 +1,38 @@
+1. Setup Guide:
+
+    a. Quick Start: https://deeplearning4j.org/quickstart
+    b. Full Installation: https://deeplearning4j.org/gettingstarted (Both for Eclipse & IntelliJ)
+    	Steps for running examples in Eclipse:
+        1. $ git --version / $ mvn --version
+        2. $ git clone https://github.com/deeplearning4j/dl4j-examples
+        3. $ mvn eclipse:eclipse (This step creates an Eclipse project that could be imported)
+        4. Install M2E in Eclipse: Help -> Install New Software -> Work with (http://download.eclipse.org/technology/m2e/releases/) (Site) -> Install all options
+        5. Run Code. (For Example: MLPClassifierLinear.java)
+      There might be some errors in pom.xml, ignore them.
+
+2. 2 Steps for DL:
+
+	a. loading & prepaing data: using library: DataVec：
+		1. Using Interface: RecordReader, RecordReaderDataSetIterator -> get DataSetIterator
+		2. Normalizing Data: between -1 to 1: Set up DataNormalization ( ImagePreProcessingScaler, NormalizerMinMaxScaler and NormalizerStandardize) as a preprocessor for DataSetIterator
+		3. store in INDArray(n-dimensional arrays): one for the features of examples, one for the labels
+
+	b. learning from data: DL4J: requireing library: ND4J
+		1. Build a model: in Java: set layers and hyperparameters: 
+			MultiLayerConfiguration conf = new NeuralNetConfiguration.Builder()
+			.optimizationAlgo(OptimizationAlgorithm.STOCHASTIC_GRADIENT_DESCENT)
+			.updater(Updater.NESTEROVS).momentum(0.9)
+			.learningRate(learningRate)
+			.list(
+				new DenseLayer.Builder().nIn(numInputs).nOut(numHiddenNodes).activation("relu").build(),
+				new OutputLayer.Builder(LossFunction.NEGATIVELOGLIKELIHOOD).activation("softmax").nIn(numHiddenNodes).nOut(numOutputs).build()
+			).backprop(true).build();
+		2. Traning a Model: call .fit():
+			setup traning iterations: .iterations(N): saying A,B,C 3 mini-batches:
+				1. set .iterations(3) to traing as AAABBBCCC 
+				2. or using 3 loops to set .iteratons(1)
+		3. Evaluating a model: using Evaluation class: for different NNs, using differernt methods
+
+
+
+
