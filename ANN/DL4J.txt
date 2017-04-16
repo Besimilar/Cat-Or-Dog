@@ -36,5 +36,9 @@
 			a. https://github.com/deeplearning4j/dl4j-examples/blob/master/dl4j-examples/src/main/java/org/deeplearning4j/examples/misc/modelsaving/SaveLoadMultiLayerNetwork.java
 			b. view parameters(weights): model.params()
 
+3. Build Project
+
+mvn clean package
+
 
 
