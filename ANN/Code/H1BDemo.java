@@ -35,16 +35,18 @@ public class H1BDemo {
         int seed = 123;
         
         int index = 2;
-        int layer = 2;
-        double learningRate = 0.001;
-        int batchSize = 100;
-        int nEpochs = 300;
-        double mtn = 0.1;
+        int layer = 3;
+        double learningRate = 0.01;
+        int batchSize = 1000;
+        int nEpochs = 100;
+        double mtn = 0.9;
+        int iter = 1;
 
         int numInputs = 9;
         int numOutputs = 2;
-        int numHiddenNodes = 1000;
+        int numHiddenNodes = 60;
 
+        System.out.println(numHiddenNodes);
         // test code
         /*System.out.println(Thread.currentThread().getContextClassLoader());
         ClassLoader loader = ClassPathResource.class.getClassLoader();
@@ -53,9 +55,17 @@ public class H1BDemo {
         System.out.println(url);
        */
    
-        final String filenameTrain  = new ClassPathResource("classification/INPUTdemo.csv").getFile().getPath();
-        final String filenameTest  = new ClassPathResource("classification/INPUTdemo-test.csv").getFile().getPath();
-
+        // for 0.2m data
+        final String filenameTrain  = new ClassPathResource("BalancedData.csv").getFile().getPath();
+        final String filenameTest  = new ClassPathResource("TestData.csv").getFile().getPath();
+        
+        // for 20k data
+       // final String filenameTrain  = new ClassPathResource("INPUTdemo.csv").getFile().getPath();
+       // final String filenameTest  = new ClassPathResource("INPUTdemo-test.csv").getFile().getPath();
+        
+        // for mini data
+        //final String filenameTrain  = new ClassPathResource("INPUTmini.csv").getFile().getPath();
+        //final String filenameTest  = new ClassPathResource("INPUTmini.csv").getFile().getPath();
         
         //Load the training data:
         RecordReader rr = new CSVRecordReader();
@@ -70,7 +80,7 @@ public class H1BDemo {
 
         MultiLayerConfiguration conf = new NeuralNetConfiguration.Builder()
                 .seed(seed)
-                .iterations(1)
+                .iterations(iter)
 
                 .optimizationAlgo(OptimizationAlgorithm.STOCHASTIC_GRADIENT_DESCENT)
                 .learningRate(learningRate)
@@ -81,16 +91,27 @@ public class H1BDemo {
                         .activation(Activation.RELU)
                         .build())
                 
-                /*.layer(1, new DenseLayer.Builder().nIn(numHiddenNodes).nOut(numHiddenNodes/2)
+               .layer(1, new DenseLayer.Builder().nIn(numHiddenNodes).nOut(numHiddenNodes)
                         .weightInit(WeightInit.XAVIER)
                         .activation(Activation.RELU)
-                        .build())*/
+                        .build())
+               
+               .layer(2, new DenseLayer.Builder().nIn(numHiddenNodes).nOut(numHiddenNodes/2)
+                       .weightInit(WeightInit.XAVIER)
+                       .activation(Activation.RELU)
+                       .build())
                 
-                .layer(1, new OutputLayer.Builder(LossFunction.NEGATIVELOGLIKELIHOOD)
+                .layer(3, new OutputLayer.Builder(LossFunction.NEGATIVELOGLIKELIHOOD)
                         .weightInit(WeightInit.XAVIER)
                         .activation(Activation.SOFTMAX).weightInit(WeightInit.XAVIER)
-                        .nIn(numHiddenNodes).nOut(numOutputs).build())
+                        .nIn(numHiddenNodes/2).nOut(numOutputs).build())
                 .pretrain(false).backprop(true).build();
+        
+		        /*.layer(2, new OutputLayer.Builder(LossFunction.NEGATIVELOGLIKELIHOOD)
+		                .weightInit(WeightInit.XAVIER)
+		                .activation(Activation.SOFTMAX).weightInit(WeightInit.XAVIER)
+		                .nIn(numHiddenNodes/2).nOut(numOutputs).build())
+		        .pretrain(false).backprop(true).build();*/
 
 
         MultiLayerNetwork model = new MultiLayerNetwork(conf);
@@ -118,8 +139,8 @@ public class H1BDemo {
         System.out.println(eval.stats());
         
         // test Code for output model
-        System.out.println(model.params());
-        System.out.println(model.numParams());
+        // System.out.println(model.params());
+        System.out.println("#Weights: " + model.numParams());
         /*System.out.println(model.numParams(true));
         System.out.println(model.numParams(false));*/
         //System.out.println(model);
