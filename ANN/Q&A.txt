@@ -1,0 +1,45 @@
+Q & A: 
+https://deeplearning4j.org/questions
+https://deeplearning4j.org/troubleshootingneuralnets#epochs
+
+1. How to use ANN for classification (for discrete Data)?
+	
+	one-hot representation?: what's that?
+
+	https://www.analyticsvidhya.com/blog/2015/11/easy-methods-deal-categorical-variables-predictive-modeling/
+
+2. How to normalize Data?
+
+	a. https://deeplearning4j.org/core-concepts
+	b. https://github.com/deeplearning4j/oreilly-book-dl4j-examples/blob/master/dl4j-examples/src/main/java/org/deeplearning4j/examples/dataExamples/CSVExampleEvaluationMetaData.java
+	c. https://github.com/deeplearning4j/dl4j-examples/blob/master/dl4j-examples/src/main/java/org/deeplearning4j/examples/convolution/AnimalsClassification.java#L115
+
+	Note: refer to c for large dataset:
+		set the coresponding DataNormalization up as a preprocessor for your DataSetIterator
+
+		save those statistics along with the model in order to restore them when you restore your model.
+
+	Write to csv: https://gist.github.com/dwr-psandhu/9b0443458d424bd7c31634f742818a46
+
+
+3. Layers? Epochs? Nodes? (How to set hyperparameters?)
+	
+	links: https://stats.stackexchange.com/questions/181/how-to-choose-the-number-of-hidden-layers-and-nodes-in-a-feedforward-neural-netw
+	https://deeplearning4j.org/troubleshootingneuralnets#epochs
+
+	a. Epochs: using early Stop
+	b. Nodes: prune nodes based on (small) values of weights.
+
+4. How to store/load models?
+
+5. How to use DL4J on Spark?
+
+6. What does NaN mean (score of model)?
+	
+	A. Backpropagation involves the multiplication of very small gradients, due to limited precision when representing real numbers values very close to zero can not be represented. The term for this issue is Arithmetic Underflow. If your Neural Network is throwing nan’s then the solution is to retune your network to avoid the very small gradients. This is more likely an issue with deeper Neural Networks.
+
+	You can try using double data type but it’s usually recommended to retune the net first.
+
+	Following the basic tuning tips and monitoring the results is the way to ensure NAN doesn’t show up anymore.
+
+	Solution: Normalize data?

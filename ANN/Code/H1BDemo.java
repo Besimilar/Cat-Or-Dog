@@ -69,7 +69,6 @@ public class H1BDemo {
         
         //Load the training data:
         RecordReader rr = new CSVRecordReader();
-
         rr.initialize(new FileSplit(new File(filenameTrain)));
         DataSetIterator trainIter = new RecordReaderDataSetIterator(rr,batchSize,0,2);
 
@@ -77,6 +76,11 @@ public class H1BDemo {
         RecordReader rrTest = new CSVRecordReader();
         rrTest.initialize(new FileSplit(new File(filenameTest)));
         DataSetIterator testIter = new RecordReaderDataSetIterator(rrTest,batchSize,0,2);
+
+        // Data Normalization
+        DataNormalization nmm = new  NormalizerMinMaxScaler();
+        nmm.fit(trainIter);
+        trainIter.setPreProcessor(nmm);
 
         MultiLayerConfiguration conf = new NeuralNetConfiguration.Builder()
                 .seed(seed)
@@ -125,6 +129,10 @@ public class H1BDemo {
 
         System.out.println("Evaluate model....");
         Evaluation eval = new Evaluation(numOutputs);
+
+        nmm.fit(testIter);
+        testIter.setPreProcessor(nmm);
+
         while(testIter.hasNext()){
             DataSet t = testIter.next();
             INDArray features = t.getFeatureMatrix();
