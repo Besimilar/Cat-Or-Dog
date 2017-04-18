@@ -4,13 +4,13 @@
 
   <groupId>sundays.deeplearning</groupId>
   <artifactId>h1b</artifactId>
-  <version>0.8-SNAPSHOT</version>
+  <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <name>h1b</name>
   <url>http://maven.apache.org</url>
 
-  <properties>
+<properties>
   
   	<!-- Change the nd4j.backend property to nd4j-cuda-7.5-platform or nd4j-cuda-8.0-platform to use CUDA GPUs -->
     <nd4j.backend>nd4j-native-platform</nd4j.backend>
@@ -35,6 +35,9 @@
     <jcommon.version>1.0.23</jcommon.version>
     <maven.minimum.version>3.3.1</maven.minimum.version>
     <aws.sdk.version>1.11.109</aws.sdk.version>
+    
+    <!--  For UI  -->
+    <scala.binary.version>2.11</scala.binary.version>
     
   </properties>
   
@@ -89,6 +92,15 @@
     	<artifactId>slf4j-simple</artifactId>
     	<version>1.6.1</version>
     </dependency>
+    
+     <!-- deeplearning4j-ui is used for HistogramIterationListener + visualization: see http://deeplearning4j.org/visualization -->
+    <dependency>
+        <groupId>org.deeplearning4j</groupId>
+        <artifactId>deeplearning4j-ui_${scala.binary.version}</artifactId>
+        <version>${dl4j.version}</version>
+     </dependency>
+
+    
   </dependencies>
   
   <build>
@@ -192,5 +204,5 @@
         </plugins>
     </pluginManagement>
   </build>
-
+  
 </project>
