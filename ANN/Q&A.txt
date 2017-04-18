@@ -8,7 +8,9 @@ https://deeplearning4j.org/troubleshootingneuralnets#epochs
 
 	https://www.analyticsvidhya.com/blog/2015/11/easy-methods-deal-categorical-variables-predictive-modeling/
 
-2. How to normalize Data?
+	****** https://www.youtube.com/watch?v=MLEMw2NxjxE
+
+(Solved)2. How to normalize Data? 
 
 	a. https://deeplearning4j.org/core-concepts
 	b. https://github.com/deeplearning4j/oreilly-book-dl4j-examples/blob/master/dl4j-examples/src/main/java/org/deeplearning4j/examples/dataExamples/CSVExampleEvaluationMetaData.java
@@ -17,9 +19,8 @@ https://deeplearning4j.org/troubleshootingneuralnets#epochs
 	Note: refer to c for large dataset:
 		set the coresponding DataNormalization up as a preprocessor for your DataSetIterator
 
-		save those statistics along with the model in order to restore them when you restore your model.
-
-	Write to csv: https://gist.github.com/dwr-psandhu/9b0443458d424bd7c31634f742818a46
+		save those statistics along with the model in order to restore them when you restore your model. (How?)
+		Write to csv: https://gist.github.com/dwr-psandhu/9b0443458d424bd7c31634f742818a46
 
 
 3. Layers? Epochs? Nodes? (How to set hyperparameters?)
@@ -30,11 +31,16 @@ https://deeplearning4j.org/troubleshootingneuralnets#epochs
 	a. Epochs: using early Stop
 	b. Nodes: prune nodes based on (small) values of weights.
 
-4. How to store/load models?
+(Solved)4. How to store/load models?
+
+	https://www.youtube.com/watch?v=zrTSs715Ylo
+
+	ModelSerializer.writeModel
+	ModelSerializer.restoreMultiLayerNetwork
 
 5. How to use DL4J on Spark?
 
-6. What does NaN mean (score of model)?
+6. What does NaN mean (What's score of model)?
 	
 	A. Backpropagation involves the multiplication of very small gradients, due to limited precision when representing real numbers values very close to zero can not be represented. The term for this issue is Arithmetic Underflow. If your Neural Network is throwing nan’s then the solution is to retune your network to avoid the very small gradients. This is more likely an issue with deeper Neural Networks.
 
@@ -42,4 +48,6 @@ https://deeplearning4j.org/troubleshootingneuralnets#epochs
 
 	Following the basic tuning tips and monitoring the results is the way to ensure NAN doesn’t show up anymore.
 
-	Solution: Normalize data?
+	Solution: Normalize data? seems Yes.
+
+	https://deeplearning4j.org/visualization
