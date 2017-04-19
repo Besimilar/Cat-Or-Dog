@@ -2,7 +2,7 @@ Q & A:
 https://deeplearning4j.org/questions
 https://deeplearning4j.org/troubleshootingneuralnets#epochs
 
-1. How to use ANN for classification (for discrete Data)?
+(Solved)1. How to use ANN for classification (for discrete Data)?
 	
 	one-hot representation?: what's that?
 
@@ -30,6 +30,7 @@ https://deeplearning4j.org/troubleshootingneuralnets#epochs
 
 	a. Epochs: using early Stop
 	b. Nodes: prune nodes based on (small) values of weights.
+	c. Layers: add more layers (for this project, 9 features and 9 layers) and then reduce.
 
 (Solved)4. How to store/load models?
 
@@ -40,7 +41,7 @@ https://deeplearning4j.org/troubleshootingneuralnets#epochs
 
 5. How to use DL4J on Spark?
 
-6. What does NaN mean (What's score of model)?
+(Solved)6. What does NaN mean (What's score of model)?
 	
 	A. Backpropagation involves the multiplication of very small gradients, due to limited precision when representing real numbers values very close to zero can not be represented. The term for this issue is Arithmetic Underflow. If your Neural Network is throwing nan’s then the solution is to retune your network to avoid the very small gradients. This is more likely an issue with deeper Neural Networks.
 
@@ -48,6 +49,7 @@ https://deeplearning4j.org/troubleshootingneuralnets#epochs
 
 	Following the basic tuning tips and monitoring the results is the way to ensure NAN doesn’t show up anymore.
 
-	Solution: Normalize data? seems Yes.
+	Solution: Normalize data? Yes!!! Random distribute all the data!!!
 
-	https://deeplearning4j.org/visualization
+	View Training Process: http://localhost:9000/train
+		refer to https://deeplearning4j.org/visualization
