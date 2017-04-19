@@ -19,6 +19,7 @@ import org.deeplearning4j.optimize.listeners.ScoreIterationListener;
 import org.deeplearning4j.ui.api.UIServer;
 import org.deeplearning4j.ui.stats.StatsListener;
 import org.deeplearning4j.ui.storage.InMemoryStatsStorage;
+import org.deeplearning4j.util.ModelSerializer;
 import org.nd4j.linalg.activations.Activation;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.dataset.DataSet;
@@ -38,23 +39,27 @@ public class H1BDemo {
 
 
     public static void main(String[] args) throws Exception {
-        int seed = 123;
         
+    		int seed = 123;
         int index = 1; // test ID, your can ignore this line
-        int layer = 9; 
+        int layer = 9;
+        
         double learningRate = 0.01;
         int batchSize = 1000;
-        int nEpochs = 100;
+        int nEpochs = 1;
         double mtn = 0.9;
         int iter = 1;
+        int numHiddenNodes = 30;
 
         int numInputs = 9;
         int numOutputs = 2;
-        int numHiddenNodes = 30;
-
-        System.out.println(numHiddenNodes);
         
-        // test code
+        // model saving parameters
+        // File output = new File("Trained_model.zip");
+        // if you need to further train a model, set true
+        // boolean saveUpdater = false;
+
+        // test location of input file 
         /*System.out.println(Thread.currentThread().getContextClassLoader());
         ClassLoader loader = ClassPathResource.class.getClassLoader();
         System.out.println(loader);
@@ -63,16 +68,12 @@ public class H1BDemo {
        */
    
         // for train/test data
-        final String filenameTrain  = new ClassPathResource("BalancedData.csv").getFile().getPath();
-        final String filenameTest  = new ClassPathResource("TestData.csv").getFile().getPath();
+        // final String filenameTrain  = new ClassPathResource("NormalizedData(NoZero).csv").getFile().getPath();
+        // final String filenameTest  = new ClassPathResource("NormalizedData(NoZero).csv").getFile().getPath();
         
-        // for 20k data
-        //final String filenameTrain  = new ClassPathResource("INPUTdemo.csv").getFile().getPath();
-        //final String filenameTest  = new ClassPathResource("INPUTdemo-test.csv").getFile().getPath();
-        
-        // for mini data
-        //final String filenameTrain  = new ClassPathResource("INPUTmini.csv").getFile().getPath();
-        //final String filenameTest  = new ClassPathResource("INPUTmini.csv").getFile().getPath();
+        // for 20k demo data
+        final String filenameTrain  = new ClassPathResource("classification/INPUTdemo.csv").getFile().getPath();
+        final String filenameTest  = new ClassPathResource("classification/INPUTdemo-test.csv").getFile().getPath();
         
         //Load the training data:
         RecordReader rr = new CSVRecordReader();
@@ -85,9 +86,9 @@ public class H1BDemo {
         DataSetIterator testIter = new RecordReaderDataSetIterator(rrTest,batchSize,0,2);
 
         // Data Normalization for training data
-        DataNormalization nmm = new  NormalizerMinMaxScaler();
+        /*DataNormalization nmm = new  NormalizerMinMaxScaler();
         nmm.fit(trainIter);
-        trainIter.setPreProcessor(nmm);
+        trainIter.setPreProcessor(nmm);*/
 
         // ANN Configuration
         MultiLayerConfiguration conf = new NeuralNetConfiguration.Builder()
@@ -143,33 +144,32 @@ public class H1BDemo {
                        .activation(Activation.RELU)
                        .build())
                 
-                .layer(9, new OutputLayer.Builder(LossFunction.NEGATIVELOGLIKELIHOOD)
+               .layer(9, new OutputLayer.Builder(LossFunction.NEGATIVELOGLIKELIHOOD)
                         .weightInit(WeightInit.XAVIER)
                         .activation(Activation.SOFTMAX).weightInit(WeightInit.XAVIER)
                         .nIn(numHiddenNodes).nOut(numOutputs).build())
-                .pretrain(false).backprop(true).build();
+               .pretrain(false).backprop(true).build();
         
-		        /*.layer(2, new OutputLayer.Builder(LossFunction.NEGATIVELOGLIKELIHOOD)
-		                .weightInit(WeightInit.XAVIER)
-		                .activation(Activation.SOFTMAX).weightInit(WeightInit.XAVIER)
-		                .nIn(numHiddenNodes/2).nOut(numOutputs).build())
-		        .pretrain(false).backprop(true).build();*/
-
-
+	
+        // if we load model from previous work
+        // output: the model you saved.
+        // MultiLayerNetwork model = ModelSerializer.restoreMultiLayerNetwork(output);
+        
+        
         MultiLayerNetwork model = new MultiLayerNetwork(conf);
         model.init();
         //model.setListeners(new ScoreIterationListener(100));  //Print score every 10 parameter updates
 
         // view training information in UI
         //Initialize the user interface backend
-        UIServer uiServer = UIServer.getInstance();
+        /*UIServer uiServer = UIServer.getInstance();
         //Configure where the network information (gradients, score vs. time etc) is to be stored. Here: store in memory.
         StatsStorage statsStorage = new InMemoryStatsStorage();         //Alternative: new FileStatsStorage(File), for saving and loading later
         //Attach the StatsStorage instance to the UI: this allows the contents of the StatsStorage to be visualized
         uiServer.attach(statsStorage);
         //Then add the StatsListener to collect this information from the network, as it trains
         model.setListeners(new StatsListener(statsStorage));
-
+*/
         // ******Start training
         for ( int n = 0; n < nEpochs; n++) {
             model.fit( trainIter );
@@ -180,8 +180,8 @@ public class H1BDemo {
         Evaluation eval = new Evaluation(numOutputs);
 
         // Normalization for Test Data
-        nmm.fit(testIter);
-        testIter.setPreProcessor(nmm);
+        /*nmm.fit(testIter);
+        testIter.setPreProcessor(nmm);*/
 
         while(testIter.hasNext()){
             DataSet t = testIter.next();
@@ -203,10 +203,16 @@ public class H1BDemo {
         System.out.println(model.numParams(false));*/
         //System.out.println(model);
         
-        System.out.println("ID:\t" + "LRate\t" + "BSize\t"+ "Epochs\t" + "Momentum\t" + "Layer");
+        System.out.println("ID:\t" + "LRate\t" + "BSize\t"+ "Epochs\t" + "Mmt\t" + "NodesPL\t" + "Layer");
         System.out.println(index + "\t" + learningRate + "\t" + batchSize
-        				+ "\t" + nEpochs + "\t" + mtn + "\t" + layer);
-        System.out.println("****************Example finished********************");
+        				+ "\t" + nEpochs + "\t" + mtn + "\t" + numHiddenNodes +  "\t" + layer);
+        System.out.println();
+        System.out.println("****************Training finished********************");
+        
+        // save model
+        /*System.out.println();
+        System.out.println("Save Model as " + output.getName());
+        ModelSerializer.writeModel(model, output, saveUpdater);*/
         
     }
 }

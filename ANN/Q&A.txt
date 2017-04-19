@@ -23,14 +23,14 @@ https://deeplearning4j.org/troubleshootingneuralnets#epochs
 		Write to csv: https://gist.github.com/dwr-psandhu/9b0443458d424bd7c31634f742818a46
 
 
-3. Layers? Epochs? Nodes? (How to set hyperparameters?)
+(Solved)3. Layers? Epochs? Nodes? (How to set hyperparameters?)
 	
 	links: https://stats.stackexchange.com/questions/181/how-to-choose-the-number-of-hidden-layers-and-nodes-in-a-feedforward-neural-netw
 	https://deeplearning4j.org/troubleshootingneuralnets#epochs
 
-	a. Epochs: using early Stop
+	a. Epochs: using early Stop: https://deeplearning4j.org/earlystopping
 	b. Nodes: prune nodes based on (small) values of weights.
-	c. Layers: add more layers (for this project, 9 features and 9 layers) and then reduce.
+	c. Layers: add more layers (for this project, 9 features and 9 layers) and then reduce the #Layers.
 
 (Solved)4. How to store/load models?
 
