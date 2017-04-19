@@ -1,1 +1,62 @@
-1. DL4J on Spark: https://deeplearning4j.org/spark
+****** Don't run on Ubuntu 16.04 machines
+
+
+DL4J on Spark (parameter averaging): https://deeplearning4j.org/spark
+
+	SparkDl4jMultiLayer, a wrapper around MultiLayerNetwork. Distributed on Spark differs from local training in two respects, however: how data is loaded, and how training is set up (requiring some additional cluster-specific configuration).
+
+1. Steps:
+
+	1. Create your network training class:
+		
+		a. Specifying your network configuration: MultiLayerConfiguration
+		b. Creating a TrainingMaster instance: this specifies how distributed training will be conducted in practice
+		c. Creating the SparkDl4jMultiLayer or SparkComputationGraph instance using the network configuration and TrainingMaster objects
+		d. Load your training data. 
+		e. Calling the appropriate fit method on the SparkDl4jMultiLayer or SparkComputationGraph instance
+		f. Saving or using the trained network
+
+	2. Package your jar file ready for Spark submit
+		
+		If you are using maven, running “mvn package -DskipTests” is one approach
+
+	3. Call Spark submit with the appropriate launch configuration for your cluster
+
+2. How does it work?
+
+	1. The master (Spark driver) starts with an initial network configuration and parameters.
+	2. Data is split into a number of subsets, based on the configuration of the TrainingMaster:
+		In practice, the number of splits is determined automatically, based on the training configuration (based on number of workers, averaging frequency and worker minibatch sizes - see configuration section).
+	3. Iterate over the data splits. For each split of the training data:
+		a. Distribute the configuration, parameters (and if applicable, network updater state for momentum/rmsprop/adagrad) from the master to each worker
+		b. Fit each worker on its portion of the split
+		c. Average the parameters (and if applicable, updater state) and return the averaged results to the master.
+	4. Training is complete, with the master having a copy of the trained network
+
+3.  Memory settings: 
+	
+	When submitting a job to a cluster via Spark submit, it is necessary to specify a small number of configuration options, such as the number of executors, the number of cores per executor and amount of memory for each executor.
+
+	Using YARN: the amount of memory allocated to a YARN container is the sum of the on-heap (i.e., JVM memory size) and off-heap (“memory overhead” in YARN terms) memory requested by the user:
+		a. spark.executor.memory: This is the standard JVM memory allocation. It is analogous to the Xmx setting for a single JVM.
+		b. spark.yarn.executor.memoryOverhead: This is the amount of ‘extra’ memory allocated to the container. It is not allocated to the JVM, and hence is available for code that utilizes off-heap memory (including ND4J/JavaCPP):
+			Because of the extensive use of off-heap memory by ND4J, it is generally necessary to increase the memory overhead setting when training on Spark.
+		c. org.bytedeco.javacpp.maxbytes: Let ND4J/JavaCPP know how much off-heap memory it is allowed to use
+
+	Important:
+		1. The sum of spark.executor.memory and spark.yarn.executor.memoryOverhead must be less than the maximum amount of memory that YARN will allocate to a single container. You can generally find this limit in the YARN configuration or YARN resource manager web UI. If you exceed this limit, YARN is likely to reject your job.
+		2. The value for org.bytedeco.javacpp.maxbytes should be strictly less than spark.yarn.executor.memoryOverhead
+		3. Because DL4J/ND4J makes use off-heap memory for data, parameters and activations, we can afford to allocate less to the JVM (i.e., executor.memory) than we might otherwise do. Of course, we still require enough JVM memory for Spark itself (and any other libraries we are using), so we don’t want to reduce this too much.
+
+	Spark submit for below environment:
+		4 executors, 8 cores each
+		Maximum container memory allocatable by YARN: 11GB
+		JVM (executors and driver) memory: 4GB
+		ND4J/JavaCPP off-heap memory (executors and driver): 5GB
+		Extra off-heap memory: 1GB
+	
+		--class my.class.name.here --num-executors 4 --executor-cores 8 --executor-memory 4G --driver-memory 4G --conf "spark.executor.extraJavaOptions=-Dorg.bytedeco.javacpp.maxbytes=5368709120" --conf "spark.driver.extraJavaOptions=-Dorg.bytedeco.javacpp.maxbytes=5368709120" --conf spark.yarn.executor.memoryOverhead=6144
+
+		 --conf spark.locality.wait=0 to improve training performance
+
+

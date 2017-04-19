@@ -39,7 +39,9 @@ https://deeplearning4j.org/troubleshootingneuralnets#epochs
 	ModelSerializer.writeModel
 	ModelSerializer.restoreMultiLayerNetwork
 
-5. How to use DL4J on Spark?
+(Solved)5. How to use DL4J on Spark? 
+	
+	Refer to Cluser/
 
 (Solved)6. What does NaN mean (What's score of model)?
 	
