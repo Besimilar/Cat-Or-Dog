@@ -40,13 +40,13 @@ public class H1BEmr {
     // policy
 
     @Parameter(names = "-keyName", description = "E2C key Name")
-    private String keyName = "sunday9";
+    private String keyName = "";
     
     @Parameter(names = "-accessKey", description = "your aws accesskey")
-    private String accessKey = "AKIAJ5V4RNT4RSLPZECA";
+    private String accessKey = "";
 
     @Parameter(names = "-secretKey", description = "your aws secretKey")
-    private String secretKey = "Y8qCqbQ4P6gXPrw2awBsp9TJfprWvC9f/gC/r968";
+    private String secretKey = "";
 
     @Parameter(names = "-region", description = "your aws region")
     private Regions region = Regions.US_WEST_2;
