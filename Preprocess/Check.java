@@ -49,9 +49,6 @@ public class Check {
 			num--;
 		}
 		
-		line = line.replaceAll(", ", " ");
-		line = line.replaceAll("\"", "");
-		
 		data = line.split(",");
 		data1 = line1.split(",");
 		
@@ -67,6 +64,8 @@ public class Check {
 		
 		while((s = reader2.readLine()) != null){
 			String[] d = s.split(",");
+			d[0] = d[0].replaceAll(", ", " ");
+			d[0] = d[0].replaceAll("\"", "");
 			if(d[0].equals(data1[2]) && d[1].equals(data[2]))
 				flag[2] = true;
 		}

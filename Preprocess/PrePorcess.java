@@ -40,7 +40,6 @@ public class PrePorcess {
 		
 		String line;
 		int i = 0;
-		double start = System.currentTimeMillis();
 		reader.readLine();
 		while((line = reader.readLine()) != null){
 //			System.out.println();
@@ -102,9 +101,6 @@ public class PrePorcess {
 		soc.close();
 		jobtitle.close();
 		worksite.close();
-		double end = System.currentTimeMillis();
-		end -= start;
-		System.out.println("Total running time: " + (end / 1000));
 		System.out.println("Process Finished!");
 	}
 
