@@ -1,7 +1,12 @@
-1. I got "The given SSH key name was invalid" error, and I failed to create cluster by using java Code. I can't figure out why.
-
-2. Try to run "/dl4j-spark/src/main/java/org/deeplearning4j/emr/EmrSparkExample.java" 
+1. Try to run "/dl4j-spark/src/main/java/org/deeplearning4j/emr/EmrSparkExample.java" 
 	
 	a. You need to modify "/deeplearning4j-examples-parent/pom.xml", change Spark_1 to Spark_2, and then rebuild the project: (mvn clean package)
+	b. modify code below in EmrSparkExample.java: 
 
-3. I have uploaded dataset in s3://input, and the example.jar in s3://Jar folder. If you create clusters on the website directly, you can use these file to run a demo.
+		new JobFlowInstancesConfig().withEc2KeyName("spark") 
+		to 
+		new JobFlowInstancesConfig().withEc2KeyName("sunday9")
+
+2. I have uploaded dataset in s3://input, and the example.jar in s3://Jar folder. If you create clusters on the website directly, you can also use these file to run a demo.
+
+3. I don't install the CLI, I will try this afternoon. I am gonna sleep:)
