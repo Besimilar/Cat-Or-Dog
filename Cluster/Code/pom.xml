@@ -36,26 +36,19 @@
     <jcommon.version>1.0.23</jcommon.version>
     <maven.minimum.version>3.3.1</maven.minimum.version>
     <aws.sdk.version>1.11.109</aws.sdk.version>
+    <jackson.version>2.6.6</jackson.version>
     
     <scala.binary.version>2.11</scala.binary.version>
     
   </properties>
   
-  <dependencyManagement>
-    <dependencies>
-    	<dependency>
-        	<groupId>org.nd4j</groupId>
-            <artifactId>nd4j-native-platform</artifactId>
-          	<version>${nd4j.version}</version>
-        </dependency>
-     </dependencies>
-  </dependencyManagement>
-  
   <dependencies>
+  
   	<!-- ND4J backend. You need one in every DL4J project. Normally define artifactId as either "nd4j-native-platform" or "nd4j-cuda-7.5-platform" -->
     <dependency>
     	<groupId>org.nd4j</groupId>
         <artifactId>${nd4j.backend}</artifactId>
+        <version>${nd4j.version}</version>
     </dependency>
 
     <!-- Core DL4J functionality -->
@@ -103,6 +96,23 @@
 		<version>${aws.sdk.version}</version>
 		<scope>provided</scope>
 	</dependency>
+	
+	<dependency>
+    	<groupId>com.fasterxml.jackson.core</groupId>
+    	<artifactId>jackson-databind</artifactId>
+    	<version>${jackson.version}</version>
+   	</dependency>
+   	<dependency>
+   		<groupId>com.fasterxml.jackson.core</groupId>
+    	<artifactId>jackson-annotations</artifactId>
+    	<version>${jackson.version}</version>
+    </dependency>
+    <dependency>
+    	<groupId>com.fasterxml.jackson.module</groupId>
+    	<artifactId>jackson-module-scala_2.11</artifactId>
+    	<version>${jackson.version}</version>
+    </dependency>
+  
   </dependencies>
   
   <build>

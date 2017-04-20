@@ -44,12 +44,12 @@ public class H1BDemo {
         int index = 1; // test ID, your can ignore this line
         int layer = 9;
         
-        double learningRate = 0.01;
+        double learningRate = 0.001;
         int batchSize = 1000;
-        int nEpochs = 1;
-        double mtn = 0.9;
+        int nEpochs = 10;
+        double mmt = 0.9;
         int iter = 1;
-        int numHiddenNodes = 30;
+        int numHiddenNodes = 70;
 
         int numInputs = 9;
         int numOutputs = 2;
@@ -72,8 +72,8 @@ public class H1BDemo {
         // final String filenameTest  = new ClassPathResource("NormalizedData(NoZero).csv").getFile().getPath();
         
         // for 20k demo data
-        final String filenameTrain  = new ClassPathResource("classification/INPUTdemo.csv").getFile().getPath();
-        final String filenameTest  = new ClassPathResource("classification/INPUTdemo-test.csv").getFile().getPath();
+        final String filenameTrain  = new ClassPathResource("classification/train.csv").getFile().getPath();
+        final String filenameTest  = new ClassPathResource("classification/test.csv").getFile().getPath();
         
         //Load the training data:
         RecordReader rr = new CSVRecordReader();
@@ -97,58 +97,58 @@ public class H1BDemo {
 
                 .optimizationAlgo(OptimizationAlgorithm.STOCHASTIC_GRADIENT_DESCENT)
                 .learningRate(learningRate)
-                .updater(Updater.NESTEROVS).momentum(mtn)
+                .updater(Updater.NESTEROVS).momentum(mmt)
                 .list()
                 .layer(0, new DenseLayer.Builder().nIn(numInputs).nOut(numHiddenNodes)
                         .weightInit(WeightInit.XAVIER)
                         .activation(Activation.RELU)
                         .build())
                 
-               .layer(1, new DenseLayer.Builder().nIn(numHiddenNodes).nOut(numHiddenNodes)
+                .layer(1, new DenseLayer.Builder().nIn(numHiddenNodes).nOut(numHiddenNodes)
                         .weightInit(WeightInit.XAVIER)
                         .activation(Activation.RELU)
                         .build())
-               
-               .layer(2, new DenseLayer.Builder().nIn(numHiddenNodes).nOut(numHiddenNodes)
+
+                .layer(2, new DenseLayer.Builder().nIn(numHiddenNodes).nOut(numHiddenNodes)
                        .weightInit(WeightInit.XAVIER)
                        .activation(Activation.RELU)
                        .build())
               
-               .layer(3, new DenseLayer.Builder().nIn(numHiddenNodes).nOut(numHiddenNodes)
+                .layer(3, new DenseLayer.Builder().nIn(numHiddenNodes).nOut(numHiddenNodes)
                        .weightInit(WeightInit.XAVIER)
                        .activation(Activation.RELU)
                        .build())
                
-               .layer(4, new DenseLayer.Builder().nIn(numHiddenNodes).nOut(numHiddenNodes)
+                .layer(4, new DenseLayer.Builder().nIn(numHiddenNodes).nOut(numHiddenNodes)
                        .weightInit(WeightInit.XAVIER)
                        .activation(Activation.RELU)
                        .build())
                
-               .layer(5, new DenseLayer.Builder().nIn(numHiddenNodes).nOut(numHiddenNodes)
+                .layer(5, new DenseLayer.Builder().nIn(numHiddenNodes).nOut(numHiddenNodes)
                        .weightInit(WeightInit.XAVIER)
                        .activation(Activation.RELU)
                        .build())
                
-               .layer(6, new DenseLayer.Builder().nIn(numHiddenNodes).nOut(numHiddenNodes)
+                .layer(6, new DenseLayer.Builder().nIn(numHiddenNodes).nOut(numHiddenNodes)
                        .weightInit(WeightInit.XAVIER)
                        .activation(Activation.RELU)
                        .build())
                
-               .layer(7, new DenseLayer.Builder().nIn(numHiddenNodes).nOut(numHiddenNodes)
+                .layer(7, new DenseLayer.Builder().nIn(numHiddenNodes).nOut(numHiddenNodes)
                        .weightInit(WeightInit.XAVIER)
                        .activation(Activation.RELU)
                        .build())
                
-               .layer(8, new DenseLayer.Builder().nIn(numHiddenNodes).nOut(numHiddenNodes)
+                .layer(8, new DenseLayer.Builder().nIn(numHiddenNodes).nOut(numHiddenNodes)
                        .weightInit(WeightInit.XAVIER)
                        .activation(Activation.RELU)
                        .build())
                 
-               .layer(9, new OutputLayer.Builder(LossFunction.NEGATIVELOGLIKELIHOOD)
+                .layer(9, new OutputLayer.Builder(LossFunction.NEGATIVELOGLIKELIHOOD)
                         .weightInit(WeightInit.XAVIER)
                         .activation(Activation.SOFTMAX).weightInit(WeightInit.XAVIER)
                         .nIn(numHiddenNodes).nOut(numOutputs).build())
-               .pretrain(false).backprop(true).build();
+                .pretrain(false).backprop(true).build();
         
 	
         // if we load model from previous work
@@ -162,14 +162,14 @@ public class H1BDemo {
 
         // view training information in UI
         //Initialize the user interface backend
-        /*UIServer uiServer = UIServer.getInstance();
+        UIServer uiServer = UIServer.getInstance();
         //Configure where the network information (gradients, score vs. time etc) is to be stored. Here: store in memory.
         StatsStorage statsStorage = new InMemoryStatsStorage();         //Alternative: new FileStatsStorage(File), for saving and loading later
         //Attach the StatsStorage instance to the UI: this allows the contents of the StatsStorage to be visualized
         uiServer.attach(statsStorage);
         //Then add the StatsListener to collect this information from the network, as it trains
         model.setListeners(new StatsListener(statsStorage));
-*/
+
         // ******Start training
         for ( int n = 0; n < nEpochs; n++) {
             model.fit( trainIter );
@@ -205,7 +205,7 @@ public class H1BDemo {
         
         System.out.println("ID:\t" + "LRate\t" + "BSize\t"+ "Epochs\t" + "Mmt\t" + "NodesPL\t" + "Layer");
         System.out.println(index + "\t" + learningRate + "\t" + batchSize
-        				+ "\t" + nEpochs + "\t" + mtn + "\t" + numHiddenNodes +  "\t" + layer);
+        				+ "\t" + nEpochs + "\t" + mmt + "\t" + numHiddenNodes +  "\t" + layer);
         System.out.println();
         System.out.println("****************Training finished********************");
         

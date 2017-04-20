@@ -39,6 +39,9 @@ public class H1BEmr {
     // to granted AmazonElasticMapReduceFullAccess and AmazonEC2FullAccess
     // policy
 
+    @Parameter(names = "-keyName", description = "E2C key Name")
+    private String keyName = "sunday9";
+    
     @Parameter(names = "-accessKey", description = "your aws accesskey")
     private String accessKey = "AKIAJ5V4RNT4RSLPZECA";
 
@@ -55,7 +58,7 @@ public class H1BEmr {
     private boolean execute = true;
 
     @Parameter(names = "-upload", description = "upload uber jar")
-    private boolean upload = true;
+    private boolean upload = false;
 
     // default emr version runs spark2, so make sure to update spark version in
     // parent pom (default is spark1)
@@ -64,7 +67,7 @@ public class H1BEmr {
     private String emrVersion = "emr-5.4.0";
 
     @Parameter(names = "-bucketName", description = "aws s3 bucket name for logs and uber jar")
-    private String bucketName = "sundays9";
+    private String bucketName = "sunday9";
 
     @Parameter(names = "-keepAlive", description = "keep cluster alive after execution of spark step")
     private boolean keepAlive = true;
@@ -158,7 +161,7 @@ public class H1BEmr {
         // manually
 
         RunJobFlowRequest request = new RunJobFlowRequest().withName("Spark Cluster").withSteps(steps).withServiceRole("EMR_DefaultRole").withJobFlowRole("EMR_EC2_DefaultRole")
-                .withApplications(sparkApp).withReleaseLabel(emrVersion).withLogUri(getS3BucketLogsUrl()).withInstances(new JobFlowInstancesConfig().withEc2KeyName("spark")
+                .withApplications(sparkApp).withReleaseLabel(emrVersion).withLogUri(getS3BucketLogsUrl()).withInstances(new JobFlowInstancesConfig().withEc2KeyName(keyName)
                         .withInstanceCount(instanceCount).withKeepJobFlowAliveWhenNoSteps(keepAlive).withMasterInstanceType(instanceType).withSlaveInstanceType(instanceType));
 
         RunJobFlowResult result = emr.runJobFlow(request);
