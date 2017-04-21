@@ -1,2 +1,8 @@
-
+1. Spark Configuration
 --class my.class.name.here --num-executors 4 --executor-cores 8 --executor-memory 4G --driver-memory 4G --conf "spark.executor.extraJavaOptions=-Dorg.bytedeco.javacpp.maxbytes=5368709120" --conf "spark.driver.extraJavaOptions=-Dorg.bytedeco.javacpp.maxbytes=5368709120" --conf spark.yarn.executor.memoryOverhead=6144 
+
+2. View Logs
+yarn logs -applicationId application_1424284032717_0066
+
+3. Running Code:
+spark-submit --deploy-mode cluster --class sundays.deeplearning.h1b_spark.H1BSpark s3://besimilar/h1b-0.0.1-SNAPSHOT-bin.jar -trainData s3://besimilar/train.csv -testData s3://besimilar/test.csv
