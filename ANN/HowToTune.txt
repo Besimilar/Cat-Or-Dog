@@ -13,3 +13,7 @@ from one finite space to another.
 with rational activation functions and can approximate any smooth
 mapping to any accuracy.
 
+2. https://cs231n.github.io/neural-networks-3/#baby
+
+3. https://stats.stackexchange.com/questions/181/how-to-choose-the-number-of-hidden-layers-and-nodes-in-a-feedforward-neural-netw
+
