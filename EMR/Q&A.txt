@@ -28,7 +28,7 @@ Notes:
 	Try to run "/dl4j-spark/src/main/java/org/deeplearning4j/emr/EmrSparkExample.java" 
 	
 	a. You need to modify "/deeplearning4j-examples-parent/pom.xml", change Spark_1 to Spark_2, and then rebuild the project: (mvn clean package)
-	b. modify code below in EmrSparkExample.java: 
+	b. modify code below in EmrSparkExample.java: (your key name)
 
 		new JobFlowInstancesConfig().withEc2KeyName("spark") 
 		to 
