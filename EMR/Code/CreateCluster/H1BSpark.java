@@ -52,13 +52,13 @@ public class H1BSpark {
     private String id = "0";
     
     @Parameter(names = "-batchSizePerWorker", description = "Number of examples to fit each worker with")
-    private int batchSizePerWorker = 500;
+    private int batchSizePerWorker = 50;
 
     @Parameter(names = "-numEpochs", description = "Number of epochs for training")
     private int numEpochs = 10;
     
     @Parameter(names = "-hiddenNodes", description = "Number of hiddenNodes per layer")    
-    private int numHiddenNodes = 70;
+    private int numHiddenNodes = 10;
     
     @Parameter(names = "-learningRate", description = "Learning Rate")    
     private double learningRate = 0.001; 
@@ -142,14 +142,7 @@ public class H1BSpark {
             .list()
             .layer(0, new DenseLayer.Builder().nIn(numInputs).nOut(numHiddenNodes).build())
             .layer(1, new DenseLayer.Builder().nIn(numHiddenNodes).nOut(numHiddenNodes).build())
-            .layer(2, new DenseLayer.Builder().nIn(numHiddenNodes).nOut(numHiddenNodes).build())
-            .layer(3, new DenseLayer.Builder().nIn(numHiddenNodes).nOut(numHiddenNodes).build())
-            .layer(4, new DenseLayer.Builder().nIn(numHiddenNodes).nOut(numHiddenNodes).build())
-            .layer(5, new DenseLayer.Builder().nIn(numHiddenNodes).nOut(numHiddenNodes).build())
-            .layer(6, new DenseLayer.Builder().nIn(numHiddenNodes).nOut(numHiddenNodes).build())
-            .layer(7, new DenseLayer.Builder().nIn(numHiddenNodes).nOut(numHiddenNodes).build())
-            .layer(8, new DenseLayer.Builder().nIn(numHiddenNodes).nOut(numHiddenNodes).build())
-            .layer(9, new OutputLayer.Builder(LossFunctions.LossFunction.NEGATIVELOGLIKELIHOOD)
+            .layer(2, new OutputLayer.Builder(LossFunctions.LossFunction.MCXENT)
                 .activation(Activation.SOFTMAX).nIn(numHiddenNodes).nOut(numOutputs).build())
             .pretrain(false).backprop(true)
             .build();

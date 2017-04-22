@@ -6,3 +6,14 @@ yarn logs -applicationId application_1424284032717_0066
 
 3. Running Code:
 spark-submit --deploy-mode cluster --class sundays.deeplearning.h1b_spark.H1BSpark s3://besimilar/h1b-0.0.1-SNAPSHOT-bin.jar -trainData s3://besimilar/train.csv -testData s3://besimilar/test.csv
+
+5. Download output
+aws s3 cp s3://WholeBucket LocalFolder --recursive
+aws s3 cp s3://Bucket/Folder LocalFolder --recursive
+
+6. aws cli change users:
+$ aws configure
+AWS Access Key ID [None]: 
+AWS Secret Access Key [None]: 
+Default region name [None]: us-west-2
+Default output format [None]: ENTER

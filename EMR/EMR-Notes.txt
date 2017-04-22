@@ -19,6 +19,9 @@ Params:
 
 evaluation.stats()
 
+4. Error:
+emr java.lang.NoClassDefFoundError: com/amazonaws/services/s3/AmazonS3ClientBuilder
+change pom.xml aws dependencies from "provided" to "compile"
 
 Notes:
 
@@ -30,3 +33,5 @@ Notes:
 		new JobFlowInstancesConfig().withEc2KeyName("spark") 
 		to 
 		new JobFlowInstancesConfig().withEc2KeyName("sunday9")
+
+
