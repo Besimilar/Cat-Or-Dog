@@ -40,13 +40,13 @@ public class H1BDemo {
 
     public static void main(String[] args) throws Exception {
         
-    		int seed = 123;
+    	int seed = 123;
         int index = 1; // test ID, your can ignore this line
-        int layer = 9;
         
+        int layer = 15;
         double learningRate = 0.001;
         int batchSize = 1000;
-        int nEpochs = 10;
+        int nEpochs = 5;
         double mmt = 0.9;
         int iter = 1;
         int numHiddenNodes = 70;
@@ -72,8 +72,8 @@ public class H1BDemo {
         // final String filenameTest  = new ClassPathResource("NormalizedData(NoZero).csv").getFile().getPath();
         
         // for 20k demo data
-        final String filenameTrain  = new ClassPathResource("classification/train.csv").getFile().getPath();
-        final String filenameTest  = new ClassPathResource("classification/test.csv").getFile().getPath();
+        final String filenameTrain  = new ClassPathResource("train.csv").getFile().getPath();
+        final String filenameTest  = new ClassPathResource("test.csv").getFile().getPath();
         
         //Load the training data:
         RecordReader rr = new CSVRecordReader();
@@ -144,7 +144,37 @@ public class H1BDemo {
                        .activation(Activation.RELU)
                        .build())
                 
-                .layer(9, new OutputLayer.Builder(LossFunction.NEGATIVELOGLIKELIHOOD)
+                .layer(9, new DenseLayer.Builder().nIn(numHiddenNodes).nOut(numHiddenNodes)
+                        .weightInit(WeightInit.XAVIER)
+                        .activation(Activation.RELU)
+                        .build())
+                
+                .layer(10, new DenseLayer.Builder().nIn(numHiddenNodes).nOut(numHiddenNodes)
+                        .weightInit(WeightInit.XAVIER)
+                        .activation(Activation.RELU)
+                        .build())
+                
+                .layer(11, new DenseLayer.Builder().nIn(numHiddenNodes).nOut(numHiddenNodes)
+                        .weightInit(WeightInit.XAVIER)
+                        .activation(Activation.RELU)
+                        .build())
+                
+                .layer(12, new DenseLayer.Builder().nIn(numHiddenNodes).nOut(numHiddenNodes)
+                        .weightInit(WeightInit.XAVIER)
+                        .activation(Activation.RELU)
+                        .build())
+                
+                .layer(13, new DenseLayer.Builder().nIn(numHiddenNodes).nOut(numHiddenNodes)
+                        .weightInit(WeightInit.XAVIER)
+                        .activation(Activation.RELU)
+                        .build())
+                
+                .layer(14, new DenseLayer.Builder().nIn(numHiddenNodes).nOut(numHiddenNodes)
+                        .weightInit(WeightInit.XAVIER)
+                        .activation(Activation.RELU)
+                        .build())
+                
+                .layer(layer, new OutputLayer.Builder(LossFunction.NEGATIVELOGLIKELIHOOD)
                         .weightInit(WeightInit.XAVIER)
                         .activation(Activation.SOFTMAX).weightInit(WeightInit.XAVIER)
                         .nIn(numHiddenNodes).nOut(numOutputs).build())
