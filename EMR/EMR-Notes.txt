@@ -1,0 +1,32 @@
+1. How to not store logs to s3?
+
+	public RunJobFlowRequest withLogUri(String logUri)
+	
+	The location in Amazon S3 to write the log files of the job flow. If a value is not provided, logs are not created.
+
+	Parameters:
+	logUri - The location in Amazon S3 to write the log files of the job flow. If a value is not provided, logs are not created.
+	
+2. How to store output in s3?
+
+	https://javatutorial.net/java-s3-example
+
+3. output format:
+
+ID
+Labels:
+Params:
+
+evaluation.stats()
+
+
+Notes:
+
+	Try to run "/dl4j-spark/src/main/java/org/deeplearning4j/emr/EmrSparkExample.java" 
+	
+	a. You need to modify "/deeplearning4j-examples-parent/pom.xml", change Spark_1 to Spark_2, and then rebuild the project: (mvn clean package)
+	b. modify code below in EmrSparkExample.java: 
+
+		new JobFlowInstancesConfig().withEc2KeyName("spark") 
+		to 
+		new JobFlowInstancesConfig().withEc2KeyName("sunday9")
