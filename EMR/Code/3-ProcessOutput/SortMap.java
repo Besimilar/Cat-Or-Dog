@@ -30,6 +30,7 @@ public class SortMap extends MapReduceBase
 			throws IOException {
 		String[] data = value.toString().split("\t");
 		Double rate = Double.parseDouble(data[0]);
+		System.out.println(data[1]);
 		data[1] = data[1].replaceAll("  ", "\n");
 		output.collect(new DoubleWritable(rate), new Text(data[1]));
 	}

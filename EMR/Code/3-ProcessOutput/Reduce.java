@@ -30,20 +30,24 @@ public class Reduce extends MapReduceBase
 	public void reduce(IntWritable key, Iterator<Text> values, OutputCollector<DoubleWritable, Text> output, Reporter reporter)
 			throws IOException {
 		// TODO Auto-generated method stub
-		String ID = null;
 		String PM = null;
 		String EG = null;
 		String AC = null;
 		int i = 0;
 		while(values.hasNext()) {
 			String line = values.next().toString();
-			if(line.contains("ID:")) ID = line;
-			else if(line.contains("Parameters:")) PM = line;
-			else if(line.contains("0 classified by model as 1:")) EG = line;
+			if(line.contains("$1")) {
+				PM = line.replaceAll("$1", "");
+				PM = PM.replaceAll("\t", " ");
+			}
+			else if(line.contains("0 classified by model as 1:")) {
+				EG = line;
+				
+			}
 			else AC = line.replaceAll(" Accuracy:        ", "");
 		}
 		Double ac = Double.parseDouble(AC);
-		String v = "  " + ID + "  " + PM + "  " + EG + "  ";
+		String v = "  "  + PM + "  " + EG + "  ";
 		output.collect(new DoubleWritable(-ac), new Text(v));
 	}
 

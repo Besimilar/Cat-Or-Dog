@@ -27,22 +27,22 @@ public class Map extends MapReduceBase
 	 */
 	private static int k = 0;
 	private static int n = 0;
-	private final static int nl = 16;
+	private final static int nl = 3;
 	@Override
 	public void map(LongWritable key, Text value, OutputCollector<IntWritable, Text> output, Reporter reporter) throws IOException {
 		// TODO Auto-generated method stub
-		n++;
-		if(n == nl + 1) {
+		
+		if(n == nl) {
 			k++;
-			n = 1;
+			n = 0;
 		}
 		
 		//System.out.println(k + " " + n);
-		if(value.toString().contains("ID:") ||
-				value.toString().contains("Parameters:") ||
+		if(value.toString().contains("$1") ||
 				value.toString().contains("0 classified by model as 1:") ||
 				value.toString().contains("Accuracy:")) {
-			//System.out.println(value.toString());
+			System.out.println(value.toString());
+			n++;
 			output.collect(new IntWritable(k), value);
 		}
 			
