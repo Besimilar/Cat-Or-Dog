@@ -53,6 +53,6 @@ Hongwei Hu
   4. EMR/Code/ProcessOutput:
       * All results will be stored in S3://bucketName/output folder. Download them to local file system.
       * Use Driver.java as MapReduce main class to MR results.
-      * The output will rank accuracy of all combinations.
+      * The output will rank all combinations by accuracy.
     
       
