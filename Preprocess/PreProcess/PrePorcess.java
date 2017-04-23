@@ -26,12 +26,12 @@ public class PrePorcess {
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
 		BufferedReader reader = new BufferedReader(new FileReader("h1b_kaggle.csv"));
-		BufferedWriter writer = new BufferedWriter(new FileWriter("INPUT.csv", true));
+		BufferedWriter writer = new BufferedWriter(new FileWriter("INPUT.csv", false));
 		
-		BufferedWriter employer = new BufferedWriter(new FileWriter("EMPLOYER_NAME.csv", true));
-		BufferedWriter soc = new BufferedWriter(new FileWriter("SOC_NAME.csv", true));
-		BufferedWriter jobtitle = new BufferedWriter(new FileWriter("JOB_TITLE.csv", true));
-		BufferedWriter worksite = new BufferedWriter(new FileWriter("WORKSITE.csv", true));
+		BufferedWriter employer = new BufferedWriter(new FileWriter("EMPLOYER_NAME.csv", false));
+		BufferedWriter soc = new BufferedWriter(new FileWriter("SOC_NAME.csv", false));
+		BufferedWriter jobtitle = new BufferedWriter(new FileWriter("JOB_TITLE.csv", false));
+		BufferedWriter worksite = new BufferedWriter(new FileWriter("WORKSITE.csv", false));
 		
 		ArrayList em = new ArrayList();
 		ArrayList sc = new ArrayList();
@@ -52,7 +52,9 @@ public class PrePorcess {
 //			i++;
 			
 			if(data[1].equals("CERTIFIED")) data[1] = "1";
-			else data[1] = "0";
+			else if(data[1].equals("CERTIFIED-WITHDRAWN")) data[1] = "2";
+			else if(data[1].equals("WITHDRAWN")) data[1] = "3";
+			else data[1] = "4";
 			
 			if(em.contains(data[2])) data[2] = em.indexOf(data[2]) + 1 + "";
 			else {
