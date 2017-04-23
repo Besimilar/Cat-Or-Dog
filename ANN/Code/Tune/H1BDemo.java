@@ -40,11 +40,13 @@ public class H1BDemo {
 	double learningRate = 0.0001; //
     int batchSize = 30; //
     double mmt = 0.6; //
+    int numHiddenNodes = 6;
 
-	public H1BDemo(int a, double b, double c) {
+	public H1BDemo(int a, double b, double c, int nodes) {
 		batchSize = a;
 		learningRate = b;
 		mmt = c;
+		numHiddenNodes = nodes;
 	}
 	
     public void run() throws Exception {
@@ -53,10 +55,10 @@ public class H1BDemo {
         
     		int index = 1; // test ID, your can ignore this line
         
-        int layer = 1;
+        int layer = 2;
         int nEpochs = 5;
         int iter = 1;
-        int numHiddenNodes = 6;
+        
         
         int numInputs = 9;
         int numOutputs = 2;
@@ -95,6 +97,11 @@ public class H1BDemo {
                 .updater(Updater.NESTEROVS).momentum(mmt)
                 .list()
                 .layer(0, new DenseLayer.Builder().nIn(numInputs).nOut(numHiddenNodes)
+                        .weightInit(WeightInit.XAVIER)
+                        .activation(Activation.RELU)
+                        .build())
+                
+                .layer(1, new DenseLayer.Builder().nIn(numHiddenNodes).nOut(numHiddenNodes)
                         .weightInit(WeightInit.XAVIER)
                         .activation(Activation.RELU)
                         .build())
