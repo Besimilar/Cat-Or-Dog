@@ -44,7 +44,7 @@ public class H1BSaveModel {
         int index = 1; // test ID, your can ignore this line
         
         int layer = 2;
-        double learningRate = 0.0054;
+        double learningRate = 0.054;
         int batchSize = 130;
         int nEpochs = 5;
         double mtn = 0.9;
