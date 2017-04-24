@@ -1,0 +1,95 @@
+Evaluate model....
+
+Examples labeled as 0 classified by model as 0: 71479 times
+Examples labeled as 0 classified by model as 1: 8498 times
+Examples labeled as 1 classified by model as 0: 236 times
+Examples labeled as 1 classified by model as 1: 63901 times
+
+
+==========================Scores========================================
+ Accuracy:        0.9394
+ Precision:       0.9397
+ Recall:          0.945
+ F1 Score:        0.9423
+========================================================================
+#Weights: 165202
+ID:	LRate	BSize	Epochs	Mmt	NodesPL	Layer
+$1	0.025	70	5	0.8999999999999999	400	2
+
+****************Training finished********************
+Evaluate model....
+
+Examples labeled as 0 classified by model as 0: 71649 times
+Examples labeled as 0 classified by model as 1: 8328 times
+Examples labeled as 1 classified by model as 0: 1441 times
+Examples labeled as 1 classified by model as 1: 62696 times
+
+
+==========================Scores========================================
+ Accuracy:        0.9322
+ Precision:       0.9315
+ Recall:          0.9367
+ F1 Score:        0.9341
+========================================================================
+#Weights: 165202
+ID:	LRate	BSize	Epochs	Mmt	NodesPL	Layer
+$1	0.08499999999999999	70	5	0.7999999999999999	400	2
+
+****************Training finished********************
+Evaluate model....
+
+Examples labeled as 0 classified by model as 0: 71649 times
+Examples labeled as 0 classified by model as 1: 8328 times
+Examples labeled as 1 classified by model as 0: 1441 times
+Examples labeled as 1 classified by model as 1: 62696 times
+
+
+==========================Scores========================================
+ Accuracy:        0.9322
+ Precision:       0.9315
+ Recall:          0.9367
+ F1 Score:        0.9341
+========================================================================
+#Weights: 165202
+ID:	LRate	BSize	Epochs	Mmt	NodesPL	Layer
+$1	0.08499999999999999	70	5	0.7999999999999999	400	2
+
+****************Training finished********************
+Evaluate model....
+
+Examples labeled as 0 classified by model as 0: 71442 times
+Examples labeled as 0 classified by model as 1: 8535 times
+Examples labeled as 1 classified by model as 0: 43 times
+Examples labeled as 1 classified by model as 1: 64094 times
+
+
+==========================Scores========================================
+ Accuracy:        0.9405
+ Precision:       0.9409
+ Recall:          0.9463
+ F1 Score:        0.9436
+========================================================================
+#Weights: 320882
+ID:	LRate	BSize	Epochs	Mmt	NodesPL	Layer
+$1	0.060000000000000005	180	5	0.8999999999999999	560	2
+
+****************Training finished********************
+Evaluate model....
+
+Examples labeled as 0 classified by model as 0: 71436 times
+Examples labeled as 0 classified by model as 1: 8541 times
+Examples labeled as 1 classified by model as 0: 20 times
+Examples labeled as 1 classified by model as 1: 64117 times
+
+
+==========================Scores========================================
+ Accuracy:        0.9406
+ Precision:       0.9411
+ Recall:          0.9464
+ F1 Score:        0.9438
+========================================================================
+#Weights: 367802
+ID:	LRate	BSize	Epochs	Mmt	NodesPL	Layer
+$1	0.06999999999999999	40	5	0.7999999999999999	600	2
+
+****************Training finished********************
