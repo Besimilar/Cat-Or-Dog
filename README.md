@@ -54,5 +54,14 @@ Hongwei Hu
       * All results will be stored in S3://bucketName/output folder. Download them to local file system.
       * Use Driver.java as MapReduce main class to MR results.
       * The output will rank all combinations by accuracy.
-    
+
+## Output
+  1. The model is saved in OutputForAll/ANN/BestModel.
+      * coefficients.bin: For all weights.
+      * configuration.json: For configurations of the Neural Network.
+  2. Output for all tuning: OutputForAll/ANN/RawOutputs
+
+  2. MapReduce to rank all Hyperparameter combinations: OutputForAll/ANN/part-00000
+
+  3. MapReduce to rank companies: OutputForAll/CompanyAnalysis/part-00000
       
