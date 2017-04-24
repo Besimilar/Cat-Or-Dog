@@ -21,9 +21,9 @@ public class GenerateInputParameter {
 	 */
 	public static void main(String[] args) throws IOException {
 		//BufferedWriter bw = new BufferedWriter(new FileWriter("HPcombination.txt", false));
-		System.setOut(new PrintStream(new FileOutputStream("log.txt", true)));
+		System.setOut(new PrintStream(new FileOutputStream("shufflelog-6-clean.txt", true)));
 		
-		int N = 50;
+		int N = 10;
 		int id = 0; 
 		int batch, epochs, hiddennode;
 		double learningRate = 0, mnt = 0;
@@ -32,21 +32,21 @@ public class GenerateInputParameter {
 			
 			double rand = Math.random();
 			//rand = rand > 0.01 ? rand : 1;
-			batch = (int)(Math.ceil(rand*100 + 0.5)) * 30; // 30 - 3000
+			//batch = (int)(Math.ceil(rand*10 + 0.5)) * 50; // 30 - 3000
+			batch = (int)Math.round((rand*6 + 0.5)) * 10 + 40; // 20 - 200
+			//batch = (int)Math.round((rand*100 + 0.5)) * 50; // 50 - 5000
 			
 			epochs = 5;
 			
 			rand = Math.random();
 			//rand = rand > 0.01 ? rand : 1;
-			hiddennode = (int)(Math.ceil(rand*30 + 0.5)) * 5; // 5- 150
+			hiddennode = (int)Math.round(rand*5 + 0.5) * 20 + 380; // 400 - 600
 			
-			while((rand = Math.random()) > 0.1) {
-				learningRate = (int) (rand * 100) / 10000.0; // 0.0001 - 0.01
-			}
+			rand = Math.random();
+			learningRate = (int)Math.round(rand*14 + 0.5) * 0.005 + 0.03; // 0.04 - 0.1
 			
-			while((rand = Math.random()) > 0.1) {
-				mnt = (int) (rand * 10) / 10.0; // 0.1 - 0.9
-			}
+			rand = Math.random();
+			mnt = (int) Math.round(rand * 2 + 0.5) * 0.1 + 0.7; // 0.8 - 0.9
 			
 			//String line = id + " " + batch + " " + epochs + " "
 			//		+ hiddennode + " " + learningRate + " " + mnt;

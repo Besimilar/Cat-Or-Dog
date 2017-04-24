@@ -69,8 +69,8 @@ public class H1BDemo {
         // boolean saveUpdater = false;
 
         // for 20k demo data
-        final String filenameTrain  = new ClassPathResource("train.csv").getFile().getPath();
-        final String filenameTest  = new ClassPathResource("test.csv").getFile().getPath();
+        final String filenameTrain  = new ClassPathResource("train-clean.csv").getFile().getPath();
+        final String filenameTest  = new ClassPathResource("test-clean.csv").getFile().getPath();
         
         //Load the training data:
         RecordReader rr = new CSVRecordReader();
