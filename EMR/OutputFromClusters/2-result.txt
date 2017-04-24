@@ -1,0 +1,15 @@
+2
+Labels:	learningRate	mtn	HiddenNodes	Epochs	batchSize	iter
+Params:	0.009	0.8	135	5	4700	1
+
+Examples labeled as 0 classified by model as 0: 67803 times
+Examples labeled as 0 classified by model as 1: 23409 times
+Examples labeled as 1 classified by model as 1: 91471 times
+
+
+==========================Scores========================================
+ Accuracy:        0.8719
+ Precision:       0.8981
+ Recall:          0.8717
+ F1 Score:        0.8847
+========================================================================
